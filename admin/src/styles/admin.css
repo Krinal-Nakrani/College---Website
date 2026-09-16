@@ -1,0 +1,576 @@
+/* ==========================================================
+   ADMIN PANEL — GLOBAL DESIGN SYSTEM
+   Matches Frontend "Drafting Sheet" Institutional Theme
+   Authoritative Navy (#10243b), Parchment (#f6f4ef), & Amber (#e3a23c)
+   ========================================================== */
+
+/* ── Design Tokens (Directly shared with frontend) ──────── */
+:root {
+  --ink: #10243b;              /* Primary deep navy */
+  --steel: #2c5f82;            /* Secondary architectural blue */
+  --amber: #e3a23c;            /* Accent warm amber */
+  --amber-hover: #cf8d26;
+  --amber-soft: rgba(227, 162, 60, 0.12);
+  --amber-glow: rgba(227, 162, 60, 0.25);
+
+  --paper: #f6f4ef;            /* Architectural drafting paper background */
+  --paper-raised: #fbfaf7;     /* Soft warm white panels */
+  --paper-surface: #ffffff;    /* Crisp white cards & tables */
+  --paper-hover: #f1eee6;      /* Hover states */
+  --paper-inset: #ebe7de;      /* Inset fields & table heads */
+
+  --charcoal: #22282d;         /* Primary readable body text */
+  --mist: #6c7d8c;             /* Muted text & secondary labels */
+  --mist-light: #dce1e4;       /* Ruled drafting borders */
+
+  /* Functional alert colors */
+  --status-green: #15803d;
+  --status-green-bg: #dcfce7;
+  --status-red: #b91c1c;
+  --status-red-bg: #fee2e2;
+  --status-blue: #0369a1;
+  --status-blue-bg: #e0f2fe;
+  --status-amber: #b45309;
+  --status-amber-bg: #fef3c7;
+
+  /* Backward-compatible aliases */
+  --admin-bg: var(--paper);
+  --admin-surface: var(--paper-surface);
+  --admin-surface-raised: var(--paper-raised);
+  --admin-surface-hover: var(--paper-hover);
+  --admin-border: var(--mist-light);
+  --admin-border-light: #ecefe6;
+  --admin-ink: var(--ink);
+  --admin-ink-secondary: var(--charcoal);
+  --admin-ink-muted: var(--mist);
+  --admin-amber: var(--amber);
+  --admin-amber-hover: var(--amber-hover);
+  --admin-amber-glow: var(--amber-soft);
+  --admin-blue: var(--steel);
+  --admin-blue-glow: rgba(44, 95, 130, 0.1);
+  --admin-teal: #0d9488;
+  --admin-teal-glow: rgba(13, 148, 136, 0.1);
+  --admin-red: var(--status-red);
+  --admin-red-glow: rgba(185, 28, 28, 0.1);
+  --admin-green: var(--status-green);
+
+  /* Layout dimensions */
+  --sidebar-width: 270px;
+  --topbar-height: 70px;
+
+  /* Typography */
+  --font-display: "Space Grotesk", sans-serif;
+  --font-body: "IBM Plex Sans", sans-serif;
+  --font-mono: "IBM Plex Mono", monospace;
+
+  /* Radii & Shadows */
+  --radius-xs: 2px;
+  --radius-sm: 4px;
+  --radius-md: 6px;
+  --radius-lg: 10px;
+
+  --shadow-sm: 0 1px 3px rgba(16, 36, 59, 0.05);
+  --shadow-md: 0 4px 12px rgba(16, 36, 59, 0.08);
+  --shadow-lg: 0 12px 32px rgba(16, 36, 59, 0.12);
+}
+
+/* ── Reset & Baseline ───────────────────────────────────── */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+  font-size: 16px;
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  font-family: var(--font-body);
+  color: var(--charcoal);
+  background: var(--paper);
+  line-height: 1.55;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden;
+  position: relative;
+}
+
+/* ── Architectural Drafting Sheet Grid Pattern ─────────── */
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  background-image:
+    linear-gradient(rgba(16, 36, 59, 0.035) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(16, 36, 59, 0.035) 1px, transparent 1px);
+  background-size: 32px 32px;
+  pointer-events: none;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-display);
+  font-weight: 600;
+  color: var(--ink);
+  line-height: 1.2;
+}
+
+p {
+  margin: 0 0 1em;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+button {
+  font-family: inherit;
+  cursor: pointer;
+  border: none;
+  background: none;
+}
+
+input, select, textarea {
+  font-family: inherit;
+  font-size: inherit;
+  color: inherit;
+}
+
+/* ── App Layout ─────────────────────────────────────────── */
+.admin-layout {
+  display: flex;
+  min-height: 100vh;
+  position: relative;
+}
+
+.admin-main {
+  flex: 1;
+  margin-left: var(--sidebar-width);
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  min-width: 0; /* Prevents flex children from overflowing horizontal bounds */
+  transition: margin-left 250ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* ── Sidebar (Authoritative Navy matching frontend footer & marks) ── */
+.sidebar {
+  position: fixed;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: var(--sidebar-width);
+  background: var(--ink);
+  border-right: 1px solid rgba(255, 255, 255, 0.08);
+  color: #f1f5f9;
+  display: flex;
+  flex-direction: column;
+  z-index: 120;
+  overflow-y: auto;
+  transition: transform 260ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.sidebar-brand {
+  padding: 24px 22px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.sidebar-brand-inner {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+/* Square mark matching frontend's .navbar__mark */
+.sidebar-mark {
+  width: 42px;
+  height: 42px;
+  background: #091726;
+  border: 1px solid rgba(227, 162, 60, 0.4);
+  color: var(--amber);
+  display: grid;
+  place-items: center;
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 1.25rem;
+  letter-spacing: -0.02em;
+  flex-shrink: 0;
+}
+
+.sidebar-brand-text {
+  display: flex;
+  flex-direction: column;
+}
+
+.sidebar-title {
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: #ffffff;
+  letter-spacing: -0.01em;
+  line-height: 1.15;
+}
+
+.sidebar-subtitle {
+  font-size: 0.68rem;
+  font-weight: 600;
+  color: var(--amber);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  margin-top: 3px;
+}
+
+.sidebar-close-btn {
+  display: none;
+  color: #94a3b8;
+  font-size: 1.2rem;
+  padding: 6px;
+  border-radius: var(--radius-sm);
+  transition: color 150ms ease, background 150ms ease;
+}
+
+.sidebar-close-btn:hover {
+  color: #ffffff;
+  background: rgba(255, 255, 255, 0.08);
+}
+
+/* Sidebar Navigation */
+.sidebar-nav {
+  flex: 1;
+  padding: 20px 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.sidebar-nav-section-label {
+  font-size: 0.68rem;
+  font-weight: 700;
+  color: #64748b;
+  letter-spacing: 0.1em;
+  padding: 10px 12px 4px;
+  text-transform: uppercase;
+}
+
+.sidebar-link {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 11px 14px;
+  border-radius: var(--radius-sm);
+  color: #94a3b8;
+  font-size: 0.92rem;
+  font-weight: 500;
+  transition: all 160ms ease;
+  position: relative;
+}
+
+.sidebar-link:hover {
+  color: #ffffff;
+  background: rgba(255, 255, 255, 0.06);
+}
+
+.sidebar-link--active {
+  color: #ffffff !important;
+  background: rgba(227, 162, 60, 0.18) !important;
+  font-weight: 600;
+}
+
+/* Tick mark on active nav item matching drafting language */
+.sidebar-link--active::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 6px;
+  bottom: 6px;
+  width: 3px;
+  background: var(--amber);
+  border-radius: 0 2px 2px 0;
+}
+
+.sidebar-link-icon {
+  font-size: 1.1rem;
+  width: 22px;
+  text-align: center;
+  flex-shrink: 0;
+}
+
+.sidebar-link-label {
+  white-space: nowrap;
+}
+
+.sidebar-divider {
+  height: 1px;
+  background: rgba(255, 255, 255, 0.08);
+  margin: 14px 6px;
+}
+
+.sidebar-link--external {
+  color: #94a3b8;
+  border: 1px dashed rgba(255, 255, 255, 0.12);
+}
+
+.sidebar-link--external:hover {
+  border-color: var(--amber);
+  color: var(--amber);
+}
+
+.sidebar-footer {
+  padding: 18px 20px;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+  background: rgba(0, 0, 0, 0.15);
+}
+
+.sidebar-footer-badge {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.76rem;
+  font-weight: 500;
+  color: #cbd5e1;
+}
+
+.status-indicator-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--amber);
+  box-shadow: 0 0 6px var(--amber);
+}
+
+.sidebar-copy {
+  font-size: 0.68rem;
+  color: #64748b;
+  margin-top: 4px;
+  letter-spacing: 0.02em;
+}
+
+/* Mobile drawer backdrop */
+.sidebar-backdrop {
+  display: none;
+}
+
+/* ── TopBar ─────────────────────────────────────────────── */
+.topbar {
+  height: var(--topbar-height);
+  background: var(--paper-raised);
+  border-bottom: 1px solid var(--mist-light);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 clamp(16px, 3vw, 36px);
+  position: sticky;
+  top: 0;
+  z-index: 90;
+  box-shadow: 0 1px 2px rgba(16, 36, 59, 0.03);
+}
+
+.topbar-left {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.topbar-hamburger {
+  display: none;
+  width: 38px;
+  height: 38px;
+  border: 1px solid var(--mist-light);
+  background: var(--paper-surface);
+  border-radius: var(--radius-sm);
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  gap: 4px;
+  padding: 8px;
+  transition: all 160ms ease;
+}
+
+.topbar-hamburger:hover {
+  background: var(--paper);
+  border-color: var(--steel);
+}
+
+.hamburger-bar {
+  width: 18px;
+  height: 2px;
+  background: var(--ink);
+  border-radius: 1px;
+}
+
+.topbar-title {
+  font-size: clamp(1.15rem, 2vw, 1.45rem);
+  font-weight: 700;
+  color: var(--ink);
+  letter-spacing: -0.01em;
+}
+
+.topbar-right {
+  display: flex;
+  align-items: center;
+  gap: clamp(10px, 2vw, 20px);
+}
+
+.topbar-user {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.topbar-avatar {
+  width: 38px;
+  height: 38px;
+  background: var(--ink);
+  color: var(--amber);
+  border-radius: var(--radius-xs);
+  display: grid;
+  place-items: center;
+  font-family: var(--font-display);
+  font-size: 0.95rem;
+  font-weight: 700;
+  border: 1px solid rgba(227, 162, 60, 0.4);
+  flex-shrink: 0;
+}
+
+.topbar-user-meta {
+  display: flex;
+  flex-direction: column;
+}
+
+.topbar-email {
+  font-size: 0.86rem;
+  font-weight: 600;
+  color: var(--ink);
+  max-width: 180px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.topbar-role {
+  font-size: 0.72rem;
+  color: var(--mist);
+  font-weight: 400;
+}
+
+.topbar-logout {
+  padding: 8px 16px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--ink);
+  background: var(--paper-surface);
+  border: 1px solid var(--mist-light);
+  border-radius: var(--radius-xs);
+  transition: all 160ms ease;
+  white-space: nowrap;
+}
+
+.topbar-logout:hover {
+  background: #fee2e2;
+  border-color: #fca5a5;
+  color: var(--status-red);
+}
+
+/* ── Common Buttons & Utility Components ────────────────── */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 10px 20px;
+  font-family: var(--font-body);
+  font-size: 0.92rem;
+  font-weight: 600;
+  border-radius: var(--radius-xs);
+  transition: all 160ms ease;
+  border: 1px solid transparent;
+  cursor: pointer;
+}
+
+.btn-primary {
+  background: var(--amber);
+  color: var(--ink);
+}
+
+.btn-primary:hover {
+  background: var(--ink);
+  color: var(--amber);
+}
+
+.btn-outline {
+  background: var(--paper-surface);
+  border-color: var(--mist-light);
+  color: var(--ink);
+}
+
+.btn-outline:hover {
+  border-color: var(--steel);
+  color: var(--steel);
+}
+
+/* ── Animations ─────────────────────────────────────────── */
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+/* ── Responsive Breakpoints ─────────────────────────────── */
+@media (max-width: 992px) {
+  .admin-main {
+    margin-left: 0;
+    width: 100%;
+  }
+
+  .sidebar {
+    transform: translateX(-100%);
+    box-shadow: var(--shadow-lg);
+  }
+
+  .sidebar.sidebar--open {
+    transform: translateX(0);
+  }
+
+  .sidebar-backdrop {
+    display: block;
+    position: fixed;
+    inset: 0;
+    background: rgba(16, 36, 59, 0.45);
+    backdrop-filter: blur(4px);
+    z-index: 110;
+    animation: fadeIn 200ms ease;
+  }
+
+  .sidebar-close-btn {
+    display: block;
+  }
+
+  .topbar-hamburger {
+    display: flex;
+  }
+}
+
+@media (max-width: 640px) {
+  .topbar {
+    padding: 0 14px;
+    height: 62px;
+  }
+
+  .topbar-user-meta {
+    display: none; /* Hide email text on very small screens, keep avatar */
+  }
+
+  .topbar-logout {
+    padding: 6px 12px;
+    font-size: 0.8rem;
+  }
+}

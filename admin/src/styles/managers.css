@@ -1,0 +1,619 @@
+/* ==========================================================
+   MANAGER PAGES — Notices, Courses, Messages
+   Drafting Sheet Theme & Full Responsiveness
+   ========================================================== */
+
+.manager-content {
+  padding: clamp(16px, 3vw, 36px);
+  flex: 1;
+}
+
+/* ── Toolbar ────────────────────────────────────────────── */
+.manager-toolbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 24px;
+  flex-wrap: wrap;
+  gap: 14px;
+}
+
+.manager-toolbar-group {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+.manager-count {
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: var(--ink);
+  letter-spacing: -0.01em;
+}
+
+.manager-count .filter-label {
+  color: var(--mist);
+  font-weight: 400;
+}
+
+.manager-add-btn {
+  padding: 10px 22px;
+  min-height: 42px;
+  background: var(--amber);
+  color: var(--ink);
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 0.9rem;
+  border-radius: var(--radius-xs);
+  transition: all 180ms ease;
+  border: 1px solid transparent;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  cursor: pointer;
+  box-shadow: 0 1px 3px rgba(16, 36, 59, 0.08);
+}
+
+.manager-add-btn:hover {
+  background: var(--ink);
+  color: var(--amber);
+  box-shadow: 0 4px 12px rgba(16, 36, 59, 0.12);
+}
+
+/* ── Filter Pills (Scrollable on small screens) ─────────── */
+.manager-filters {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  background: var(--paper-raised);
+  border: 1px solid var(--mist-light);
+  border-radius: var(--radius-xs);
+  padding: 4px;
+  overflow-x: auto;
+  max-width: 100%;
+  -webkit-overflow-scrolling: touch;
+}
+
+.filter-btn {
+  padding: 6px 14px;
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: var(--mist);
+  border-radius: var(--radius-xs);
+  transition: all 150ms ease;
+  white-space: nowrap;
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+.filter-btn:hover {
+  color: var(--ink);
+  background: rgba(16, 36, 59, 0.04);
+}
+
+.filter-btn--active {
+  background: var(--ink) !important;
+  color: var(--amber) !important;
+  font-weight: 700;
+}
+
+/* ── Form (Collapsible with drafting accents) ─────────────── */
+.manager-form {
+  background: var(--paper-surface);
+  border: 1px solid var(--mist-light);
+  border-radius: var(--radius-xs);
+  padding: clamp(18px, 3vw, 28px);
+  margin-bottom: 24px;
+  box-shadow: 0 2px 8px rgba(16, 36, 59, 0.05);
+  position: relative;
+  animation: formSlide 0.25s ease-out;
+}
+
+/* Drafting corner tick */
+.manager-form::before {
+  content: "";
+  position: absolute;
+  top: -1px;
+  left: -1px;
+  width: 24px;
+  height: 24px;
+  border-top: 2px solid var(--amber);
+  border-left: 2px solid var(--amber);
+}
+
+@keyframes formSlide {
+  from {
+    opacity: 0;
+    transform: translateY(-8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.form-row {
+  display: flex;
+  gap: 16px;
+  margin-bottom: 16px;
+  flex-wrap: wrap;
+}
+
+.form-field {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  flex: 1;
+  min-width: 200px;
+}
+
+.form-field--wide {
+  flex: 2;
+  min-width: 260px;
+}
+
+.form-field--full {
+  flex-basis: 100%;
+}
+
+.form-field--checkbox {
+  flex-direction: row;
+  align-items: center;
+  min-width: auto;
+  padding-top: 26px;
+}
+
+.form-field--checkbox label {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+  font-size: 0.88rem;
+  font-weight: 500;
+  color: var(--charcoal);
+}
+
+.form-field--checkbox input[type="checkbox"] {
+  width: 18px;
+  height: 18px;
+  accent-color: var(--amber);
+}
+
+.form-field label {
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: var(--ink);
+  letter-spacing: 0.01em;
+}
+
+.form-field input,
+.form-field select,
+.form-field textarea {
+  padding: 10px 14px;
+  background: var(--paper-raised);
+  border: 1px solid var(--mist-light);
+  border-radius: var(--radius-xs);
+  color: var(--charcoal);
+  font-size: 0.92rem;
+  transition: all 160ms ease;
+  min-height: 42px;
+}
+
+.form-field input::placeholder,
+.form-field textarea::placeholder {
+  color: #a0aec0;
+}
+
+.form-field input:focus,
+.form-field select:focus,
+.form-field textarea:focus {
+  outline: none;
+  border-color: var(--steel);
+  background: #ffffff;
+  box-shadow: 0 0 0 3px rgba(44, 95, 130, 0.12);
+}
+
+.form-field select {
+  cursor: pointer;
+  appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' fill='%232c5f82' viewBox='0 0 16 16'%3E%3Cpath d='M8 11L3 6h10z'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 14px center;
+  padding-right: 34px;
+}
+
+.form-field textarea {
+  resize: vertical;
+  min-height: 90px;
+}
+
+.form-submit {
+  padding: 11px 26px;
+  min-height: 42px;
+  background: var(--amber);
+  color: var(--ink);
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 0.92rem;
+  border: 1px solid transparent;
+  border-radius: var(--radius-xs);
+  cursor: pointer;
+  transition: all 160ms ease;
+  box-shadow: 0 1px 3px rgba(16, 36, 59, 0.08);
+}
+
+.form-submit:hover:not(:disabled) {
+  background: var(--ink);
+  color: var(--amber);
+}
+
+.form-submit:disabled {
+  opacity: 0.65;
+  cursor: not-allowed;
+}
+
+/* ── Table (Responsive Drafting Sheet Table) ─────────────── */
+.manager-table-wrap {
+  background: var(--paper-surface);
+  border: 1px solid var(--mist-light);
+  border-radius: var(--radius-xs);
+  overflow-x: auto;
+  box-shadow: 0 1px 3px rgba(16, 36, 59, 0.04);
+  -webkit-overflow-scrolling: touch;
+}
+
+.manager-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.9rem;
+  text-align: left;
+  min-width: 620px; /* Ensures readable columns with horizontal scroll on phones */
+}
+
+.manager-table thead {
+  background: var(--paper-inset);
+  border-bottom: 2px solid var(--mist-light);
+}
+
+.manager-table th {
+  padding: 13px 18px;
+  font-family: var(--font-display);
+  font-size: 0.78rem;
+  font-weight: 700;
+  color: var(--ink);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+
+.manager-table td {
+  padding: 14px 18px;
+  border-bottom: 1px solid var(--mist-light);
+  color: var(--charcoal);
+  vertical-align: middle;
+}
+
+.manager-table tbody tr {
+  transition: background 120ms ease;
+}
+
+.manager-table tbody tr:hover {
+  background: var(--paper-raised);
+}
+
+.manager-table tbody tr:last-child td {
+  border-bottom: none;
+}
+
+.td-title {
+  color: var(--ink) !important;
+  font-weight: 600;
+}
+
+.td-link {
+  margin-left: 6px;
+  font-size: 0.85rem;
+  color: var(--steel);
+  transition: color 150ms ease;
+}
+
+.td-link:hover {
+  color: var(--amber);
+}
+
+.td-date {
+  white-space: nowrap;
+  font-size: 0.82rem;
+  color: var(--mist);
+  font-weight: 500;
+}
+
+.td-actions {
+  white-space: nowrap;
+}
+
+/* Badges */
+.badge {
+  display: inline-block;
+  font-size: 0.7rem;
+  font-weight: 700;
+  padding: 3px 9px;
+  border-radius: var(--radius-xs);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  border: 1px solid transparent;
+}
+
+.badge--admission { background: #e0f2fe; color: #0369a1; border-color: #bae6fd; }
+.badge--exam      { background: #fef3c7; color: #b45309; border-color: #fde68a; }
+.badge--event     { background: #dcfce7; color: #15803d; border-color: #bbf7d0; }
+.badge--general   { background: #f1f5f9; color: #475569; border-color: #e2e8f0; }
+.badge--diploma   { background: #ede9fe; color: #6b21a8; border-color: #ddd6fe; }
+.badge--degree    { background: #e0e7ff; color: #3730a3; border-color: #c7d2fe; }
+
+/* Action Buttons */
+.action-btn {
+  padding: 6px 13px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  border-radius: var(--radius-xs);
+  transition: all 150ms ease;
+  border: 1px solid transparent;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.action-btn--edit {
+  color: var(--steel);
+  background: #e0f2fe;
+  border-color: #bae6fd;
+  margin-right: 6px;
+}
+
+.action-btn--edit:hover {
+  background: var(--steel);
+  color: #ffffff;
+}
+
+.action-btn--delete {
+  color: var(--status-red);
+  background: #fee2e2;
+  border-color: #fecaca;
+}
+
+.action-btn--delete:hover {
+  background: var(--status-red);
+  color: #ffffff;
+}
+
+/* ── Empty & Loading States ─────────────────────────────── */
+.manager-loading {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 220px;
+}
+
+.manager-empty {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 260px;
+  gap: 12px;
+  color: var(--mist);
+  font-size: 0.94rem;
+  background: var(--paper-surface);
+  border: 1px dashed var(--mist-light);
+  border-radius: var(--radius-xs);
+  padding: 32px 20px;
+  text-align: center;
+}
+
+.manager-empty-icon {
+  font-size: 2.8rem;
+  opacity: 0.6;
+}
+
+/* ── Messages List (Card Based) ─────────────────────────── */
+.messages-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.message-card {
+  background: var(--paper-surface);
+  border: 1px solid var(--mist-light);
+  border-radius: var(--radius-xs);
+  padding: 16px 20px;
+  cursor: pointer;
+  transition: all 180ms ease;
+  box-shadow: 0 1px 3px rgba(16, 36, 59, 0.03);
+}
+
+.message-card:hover {
+  border-color: #cbd5e1;
+  box-shadow: 0 4px 12px rgba(16, 36, 59, 0.06);
+}
+
+.message-card--new {
+  border-left: 4px solid var(--amber);
+  background: #fffdfa;
+}
+
+.message-card--expanded {
+  border-color: var(--steel);
+  box-shadow: 0 4px 16px rgba(44, 95, 130, 0.1);
+}
+
+.message-card-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.message-card-left {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex: 1;
+  min-width: 0;
+}
+
+.message-card-right {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-shrink: 0;
+}
+
+.message-name {
+  font-family: var(--font-display);
+  font-weight: 700;
+  color: var(--ink);
+  font-size: 0.95rem;
+  display: block;
+}
+
+.message-meta {
+  font-size: 0.8rem;
+  color: var(--mist);
+  display: block;
+  margin-top: 2px;
+}
+
+.message-date {
+  font-size: 0.78rem;
+  font-weight: 500;
+  color: var(--mist);
+}
+
+.message-card-body {
+  margin-top: 14px;
+  padding-top: 14px;
+  border-top: 1px solid var(--mist-light);
+  animation: bodyExpand 0.2s ease-out;
+}
+
+@keyframes bodyExpand {
+  from {
+    opacity: 0;
+    max-height: 0;
+  }
+  to {
+    opacity: 1;
+    max-height: 400px;
+  }
+}
+
+.message-text {
+  font-size: 0.92rem;
+  color: var(--charcoal);
+  line-height: 1.6;
+  margin-bottom: 16px;
+  background: var(--paper-raised);
+  padding: 12px 16px;
+  border-radius: var(--radius-xs);
+  border: 1px solid var(--mist-light);
+}
+
+.message-text--empty {
+  font-style: italic;
+  color: var(--mist);
+}
+
+.message-actions {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.message-status-group {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.message-status-group label {
+  font-size: 0.82rem;
+  color: var(--ink);
+  font-weight: 600;
+}
+
+.status-select {
+  padding: 6px 12px;
+  background: var(--paper-raised);
+  border: 1px solid var(--mist-light);
+  border-radius: var(--radius-xs);
+  color: var(--charcoal);
+  font-size: 0.84rem;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.status-select:focus {
+  outline: none;
+  border-color: var(--steel);
+}
+
+/* ── Mobile Responsiveness Breakpoints ───────────────────── */
+@media (max-width: 900px) {
+  .manager-toolbar {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .manager-add-btn {
+    width: 100%;
+  }
+
+  .form-row {
+    flex-direction: column;
+  }
+
+  .form-field--wide,
+  .form-field {
+    min-width: 0;
+    flex: 1;
+  }
+
+  .message-card-header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .message-card-right {
+    width: 100%;
+    justify-content: space-between;
+    margin-top: 6px;
+  }
+}
+
+@media (max-width: 580px) {
+  .manager-content {
+    padding: 14px 12px;
+  }
+
+  .manager-table th,
+  .manager-table td {
+    padding: 10px 12px;
+    font-size: 0.84rem;
+  }
+
+  .message-actions {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .action-btn--delete {
+    width: 100%;
+  }
+}
