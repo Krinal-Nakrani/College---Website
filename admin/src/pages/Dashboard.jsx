@@ -77,55 +77,85 @@ export default function Dashboard() {
             </div>
 
             <div className="dashboard-panels">
-              {/* Recent Notices Panel */}
+              {/* Recent Announcements Panel */}
               <div className="dashboard-panel">
-                <h3 className="panel-title">Recent Announcements</h3>
+                <div className="panel-header">
+                  <h3 className="panel-title">Recent Announcements</h3>
+                  <span className="panel-counter">{recentNotices.length} latest</span>
+                </div>
+
                 {recentNotices.length === 0 ? (
                   <p className="panel-empty">No notices published yet.</p>
                 ) : (
-                  <ul className="panel-list">
+                  <ul className="announcements-feed">
                     {recentNotices.map((notice) => (
-                      <li key={notice._id} className="panel-list-item">
-                        <span
-                          className={`notice-badge notice-badge--${(notice.category || "general").toLowerCase()}`}
-                        >
-                          {notice.category || "General"}
-                        </span>
-                        <span className="panel-list-text" title={notice.title}>
-                          {notice.pinned && "📌 "}
-                          {notice.title}
-                        </span>
-                        <span className="panel-list-date">
-                          {new Date(notice.publishedAt || notice.createdAt).toLocaleDateString()}
-                        </span>
+                      <li key={notice._id} className="announcement-item">
+                        <div className="announcement-top">
+                          <div className="announcement-badge-group">
+                            {notice.pinned && (
+                              <span className="announcement-pinned-tag">PINNED</span>
+                            )}
+                            <span
+                              className={`notice-badge notice-badge--${(
+                                notice.category || "general"
+                              ).toLowerCase()}`}
+                            >
+                              {notice.category || "General"}
+                            </span>
+                          </div>
+                          <span className="announcement-date">
+                            {new Date(
+                              notice.publishedAt || notice.createdAt
+                            ).toLocaleDateString("en-IN", {
+                              day: "numeric",
+                              month: "short",
+                              year: "numeric",
+                            })}
+                          </span>
+                        </div>
+                        <h4 className="announcement-title">{notice.title}</h4>
                       </li>
                     ))}
                   </ul>
                 )}
               </div>
 
-              {/* Recent Messages Panel */}
+              {/* Recent Enquiries Panel */}
               <div className="dashboard-panel">
-                <h3 className="panel-title">Recent Enquiries</h3>
+                <div className="panel-header">
+                  <h3 className="panel-title">Recent Enquiries</h3>
+                  <span className="panel-counter">{recentMessages.length} latest</span>
+                </div>
+
                 {recentMessages.length === 0 ? (
-                  <p className="panel-empty">No enquiries received yet.</p>
+                  <p className="panel-empty">No student enquiries received yet.</p>
                 ) : (
-                  <ul className="panel-list">
+                  <ul className="enquiries-feed">
                     {recentMessages.map((msg) => (
-                      <li key={msg._id} className="panel-list-item">
-                        <span
-                          className={`status-dot status-dot--${msg.status || "new"}`}
-                          title={`Status: ${msg.status || "new"}`}
-                        />
-                        <span className="panel-list-text" title={msg.name}>
-                          {msg.name}
-                        </span>
-                        <span className="panel-list-sub" title={msg.course || msg.email}>
-                          {msg.course || msg.email}
-                        </span>
-                        <span className="panel-list-date">
-                          {new Date(msg.createdAt).toLocaleDateString()}
-                        </span>
+                      <li key={msg._id} className="enquiry-item">
+                        <div className="enquiry-top">
+                          <span className="enquiry-name">
+                            <span
+                              className={`status-dot status-dot--${msg.status || "new"}`}
+                              title={`Status: ${msg.status || "new"}`}
+                            />
+                            {msg.name}
+                          </span>
+                          <span className="enquiry-date">
+                            {new Date(msg.createdAt).toLocaleDateString("en-IN", {
+                              day: "numeric",
+                              month: "short",
+                            })}
+                          </span>
+                        </div>
+                        <div className="enquiry-sub">
+                          {msg.course && (
+                            <span className="enquiry-course-tag">{msg.course}</span>
+                          )}
+                          <span className="enquiry-contact-info">
+                            {msg.email} · {msg.phone}
+                          </span>
+                        </div>
                       </li>
                     ))}
                   </ul>

@@ -1,10 +1,10 @@
 /* ==========================================================
    ADMIN PANEL — GLOBAL DESIGN SYSTEM
    Matches Frontend "Drafting Sheet" Institutional Theme
-   Authoritative Navy (#10243b), Parchment (#f6f4ef), & Amber (#e3a23c)
+   Light Sidebar & Parchment Layout with Architectural Ticks
    ========================================================== */
 
-/* ── Design Tokens (Directly shared with frontend) ──────── */
+/* ── Design Tokens (Shared with frontend) ───────────────── */
 :root {
   --ink: #10243b;              /* Primary deep navy */
   --steel: #2c5f82;            /* Secondary architectural blue */
@@ -14,10 +14,10 @@
   --amber-glow: rgba(227, 162, 60, 0.25);
 
   --paper: #f6f4ef;            /* Architectural drafting paper background */
-  --paper-raised: #fbfaf7;     /* Soft warm white panels */
+  --paper-raised: #fbfaf7;     /* Soft warm white panels / light sidebar */
   --paper-surface: #ffffff;    /* Crisp white cards & tables */
   --paper-hover: #f1eee6;      /* Hover states */
-  --paper-inset: #ebe7de;      /* Inset fields & table heads */
+  --paper-inset: #ede9e0;      /* Inset fields & table heads */
 
   --charcoal: #22282d;         /* Primary readable body text */
   --mist: #6c7d8c;             /* Muted text & secondary labels */
@@ -56,7 +56,7 @@
 
   /* Layout dimensions */
   --sidebar-width: 270px;
-  --topbar-height: 70px;
+  --topbar-height: 68px;
 
   /* Typography */
   --font-display: "Space Grotesk", sans-serif;
@@ -145,6 +145,8 @@ input, select, textarea {
   display: flex;
   min-height: 100vh;
   position: relative;
+  overflow-x: hidden;
+  max-width: 100vw;
 }
 
 .admin-main {
@@ -153,30 +155,34 @@ input, select, textarea {
   display: flex;
   flex-direction: column;
   min-height: 100vh;
-  min-width: 0; /* Prevents flex children from overflowing horizontal bounds */
+  min-width: 0;
+  max-width: calc(100vw - var(--sidebar-width));
+  overflow-x: hidden;
   transition: margin-left 250ms cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-/* ── Sidebar (Authoritative Navy matching frontend footer & marks) ── */
+/* ── LIGHT SIDEBAR (Matches Frontend Institutional Theme) ── */
 .sidebar {
   position: fixed;
   left: 0;
   top: 0;
   bottom: 0;
   width: var(--sidebar-width);
-  background: var(--ink);
-  border-right: 1px solid rgba(255, 255, 255, 0.08);
-  color: #f1f5f9;
+  background: var(--paper-raised);
+  border-right: 1px solid var(--mist-light);
+  color: var(--charcoal);
   display: flex;
   flex-direction: column;
   z-index: 120;
   overflow-y: auto;
+  box-shadow: 1px 0 3px rgba(16, 36, 59, 0.04);
   transition: transform 260ms cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .sidebar-brand {
-  padding: 24px 22px;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  padding: 20px 20px;
+  border-bottom: 1px solid var(--mist-light);
+  background: #ffffff;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -190,18 +196,19 @@ input, select, textarea {
 
 /* Square mark matching frontend's .navbar__mark */
 .sidebar-mark {
-  width: 42px;
-  height: 42px;
-  background: #091726;
-  border: 1px solid rgba(227, 162, 60, 0.4);
+  width: 40px;
+  height: 40px;
+  background: var(--ink);
   color: var(--amber);
+  border: 1px solid rgba(227, 162, 60, 0.4);
   display: grid;
   place-items: center;
   font-family: var(--font-display);
   font-weight: 700;
-  font-size: 1.25rem;
+  font-size: 1.2rem;
   letter-spacing: -0.02em;
   flex-shrink: 0;
+  border-radius: var(--radius-xs);
 }
 
 .sidebar-brand-text {
@@ -210,51 +217,58 @@ input, select, textarea {
 }
 
 .sidebar-title {
-  font-size: 1.15rem;
+  font-size: 1.12rem;
   font-weight: 700;
-  color: #ffffff;
+  color: var(--ink);
   letter-spacing: -0.01em;
-  line-height: 1.15;
+  line-height: 1.2;
 }
 
 .sidebar-subtitle {
   font-size: 0.68rem;
-  font-weight: 600;
-  color: var(--amber);
-  letter-spacing: 0.12em;
+  font-weight: 700;
+  color: var(--steel);
+  letter-spacing: 0.1em;
   text-transform: uppercase;
-  margin-top: 3px;
+  margin-top: 2px;
 }
 
 .sidebar-close-btn {
   display: none;
-  color: #94a3b8;
-  font-size: 1.2rem;
-  padding: 6px;
-  border-radius: var(--radius-sm);
-  transition: color 150ms ease, background 150ms ease;
+  color: var(--mist);
+  background: var(--paper);
+  border: 1px solid var(--mist-light);
+  font-size: 0.95rem;
+  width: 32px;
+  height: 32px;
+  border-radius: var(--radius-xs);
+  cursor: pointer;
+  transition: all 150ms ease;
+  align-items: center;
+  justify-content: center;
 }
 
 .sidebar-close-btn:hover {
-  color: #ffffff;
-  background: rgba(255, 255, 255, 0.08);
+  color: var(--ink);
+  background: #ffffff;
+  border-color: var(--steel);
 }
 
 /* Sidebar Navigation */
 .sidebar-nav {
   flex: 1;
-  padding: 20px 14px;
+  padding: 18px 12px;
   display: flex;
   flex-direction: column;
-  gap: 6px;
+  gap: 4px;
 }
 
 .sidebar-nav-section-label {
   font-size: 0.68rem;
   font-weight: 700;
-  color: #64748b;
+  color: var(--mist);
   letter-spacing: 0.1em;
-  padding: 10px 12px 4px;
+  padding: 10px 10px 4px;
   text-transform: uppercase;
 }
 
@@ -262,40 +276,32 @@ input, select, textarea {
   display: flex;
   align-items: center;
   gap: 12px;
-  padding: 11px 14px;
-  border-radius: var(--radius-sm);
-  color: #94a3b8;
-  font-size: 0.92rem;
+  padding: 10px 12px;
+  border-radius: var(--radius-xs);
+  color: var(--charcoal);
+  font-size: 0.9rem;
   font-weight: 500;
   transition: all 160ms ease;
   position: relative;
+  border: 1px solid transparent;
 }
 
 .sidebar-link:hover {
-  color: #ffffff;
-  background: rgba(255, 255, 255, 0.06);
+  color: var(--ink);
+  background: var(--paper-hover);
 }
 
 .sidebar-link--active {
-  color: #ffffff !important;
-  background: rgba(227, 162, 60, 0.18) !important;
+  color: var(--ink) !important;
+  background: #ffffff !important;
   font-weight: 600;
-}
-
-/* Tick mark on active nav item matching drafting language */
-.sidebar-link--active::before {
-  content: "";
-  position: absolute;
-  left: 0;
-  top: 6px;
-  bottom: 6px;
-  width: 3px;
-  background: var(--amber);
-  border-radius: 0 2px 2px 0;
+  border-color: var(--mist-light) !important;
+  border-left: 3px solid var(--amber) !important;
+  box-shadow: 0 1px 3px rgba(16, 36, 59, 0.05);
 }
 
 .sidebar-link-icon {
-  font-size: 1.1rem;
+  font-size: 1.05rem;
   width: 22px;
   text-align: center;
   flex-shrink: 0;
@@ -307,24 +313,26 @@ input, select, textarea {
 
 .sidebar-divider {
   height: 1px;
-  background: rgba(255, 255, 255, 0.08);
-  margin: 14px 6px;
+  background: var(--mist-light);
+  margin: 12px 6px;
 }
 
 .sidebar-link--external {
-  color: #94a3b8;
-  border: 1px dashed rgba(255, 255, 255, 0.12);
+  color: var(--steel);
+  border: 1px dashed var(--mist-light);
+  margin-top: 4px;
 }
 
 .sidebar-link--external:hover {
-  border-color: var(--amber);
-  color: var(--amber);
+  border-color: var(--steel);
+  background: #ffffff;
+  color: var(--ink);
 }
 
 .sidebar-footer {
-  padding: 18px 20px;
-  border-top: 1px solid rgba(255, 255, 255, 0.08);
-  background: rgba(0, 0, 0, 0.15);
+  padding: 16px 18px;
+  border-top: 1px solid var(--mist-light);
+  background: var(--paper);
 }
 
 .sidebar-footer-badge {
@@ -332,8 +340,8 @@ input, select, textarea {
   align-items: center;
   gap: 8px;
   font-size: 0.76rem;
-  font-weight: 500;
-  color: #cbd5e1;
+  font-weight: 600;
+  color: var(--ink);
 }
 
 .status-indicator-dot {
@@ -341,13 +349,13 @@ input, select, textarea {
   height: 8px;
   border-radius: 50%;
   background: var(--amber);
-  box-shadow: 0 0 6px var(--amber);
+  box-shadow: 0 0 0 2px var(--status-amber-bg);
 }
 
 .sidebar-copy {
   font-size: 0.68rem;
-  color: #64748b;
-  margin-top: 4px;
+  color: var(--mist);
+  margin-top: 2px;
   letter-spacing: 0.02em;
 }
 
@@ -364,32 +372,35 @@ input, select, textarea {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 0 clamp(16px, 3vw, 36px);
+  padding: 0 clamp(14px, 2.5vw, 32px);
   position: sticky;
   top: 0;
   z-index: 90;
   box-shadow: 0 1px 2px rgba(16, 36, 59, 0.03);
+  max-width: 100%;
 }
 
 .topbar-left {
   display: flex;
   align-items: center;
-  gap: 14px;
+  gap: 12px;
+  min-width: 0;
 }
 
 .topbar-hamburger {
   display: none;
-  width: 38px;
-  height: 38px;
+  width: 36px;
+  height: 36px;
   border: 1px solid var(--mist-light);
   background: var(--paper-surface);
-  border-radius: var(--radius-sm);
+  border-radius: var(--radius-xs);
   align-items: center;
   justify-content: center;
   flex-direction: column;
   gap: 4px;
-  padding: 8px;
+  padding: 6px;
   transition: all 160ms ease;
+  flex-shrink: 0;
 }
 
 .topbar-hamburger:hover {
@@ -405,36 +416,38 @@ input, select, textarea {
 }
 
 .topbar-title {
-  font-size: clamp(1.15rem, 2vw, 1.45rem);
+  font-size: clamp(1.1rem, 2vw, 1.35rem);
   font-weight: 700;
   color: var(--ink);
   letter-spacing: -0.01em;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .topbar-right {
   display: flex;
   align-items: center;
-  gap: clamp(10px, 2vw, 20px);
+  gap: clamp(10px, 2vw, 18px);
+  flex-shrink: 0;
 }
 
 .topbar-user {
   display: flex;
   align-items: center;
-  gap: 10px;
+  gap: 8px;
 }
 
+/* Clean SVG profile icon avatar (eliminates misleading "X" button look) */
 .topbar-avatar {
-  width: 38px;
-  height: 38px;
-  background: var(--ink);
-  color: var(--amber);
+  width: 36px;
+  height: 36px;
+  background: #e0f2fe;
+  color: var(--steel);
   border-radius: var(--radius-xs);
   display: grid;
   place-items: center;
-  font-family: var(--font-display);
-  font-size: 0.95rem;
-  font-weight: 700;
-  border: 1px solid rgba(227, 162, 60, 0.4);
+  border: 1px solid #bae6fd;
   flex-shrink: 0;
 }
 
@@ -444,24 +457,24 @@ input, select, textarea {
 }
 
 .topbar-email {
-  font-size: 0.86rem;
+  font-size: 0.84rem;
   font-weight: 600;
   color: var(--ink);
-  max-width: 180px;
+  max-width: 160px;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
 }
 
 .topbar-role {
-  font-size: 0.72rem;
+  font-size: 0.7rem;
   color: var(--mist);
-  font-weight: 400;
+  font-weight: 500;
 }
 
 .topbar-logout {
   padding: 8px 16px;
-  font-size: 0.85rem;
+  font-size: 0.84rem;
   font-weight: 600;
   color: var(--ink);
   background: var(--paper-surface);
@@ -477,7 +490,7 @@ input, select, textarea {
   color: var(--status-red);
 }
 
-/* ── Common Buttons & Utility Components ────────────────── */
+/* ── Common Buttons ─────────────────────────────────────── */
 .btn {
   display: inline-flex;
   align-items: center;
@@ -528,6 +541,7 @@ input, select, textarea {
 @media (max-width: 992px) {
   .admin-main {
     margin-left: 0;
+    max-width: 100vw;
     width: 100%;
   }
 
@@ -544,14 +558,14 @@ input, select, textarea {
     display: block;
     position: fixed;
     inset: 0;
-    background: rgba(16, 36, 59, 0.45);
+    background: rgba(16, 36, 59, 0.4);
     backdrop-filter: blur(4px);
     z-index: 110;
     animation: fadeIn 200ms ease;
   }
 
   .sidebar-close-btn {
-    display: block;
+    display: flex;
   }
 
   .topbar-hamburger {
@@ -561,12 +575,12 @@ input, select, textarea {
 
 @media (max-width: 640px) {
   .topbar {
-    padding: 0 14px;
-    height: 62px;
+    padding: 0 12px;
+    height: 60px;
   }
 
   .topbar-user-meta {
-    display: none; /* Hide email text on very small screens, keep avatar */
+    display: none; /* Hide text email on narrow screens */
   }
 
   .topbar-logout {
