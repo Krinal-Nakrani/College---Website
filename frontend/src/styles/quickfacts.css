@@ -1,0 +1,38 @@
+.quickfacts {
+  background: #0b1c2e; /* slightly deeper than --ink for a panel feel */
+}
+
+.quickfacts__row {
+  display: flex;
+}
+
+.quickfacts__item {
+  flex: 1;
+  padding: 26px 24px;
+  border-right: 1px solid rgba(246, 244, 239, 0.12);
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+.quickfacts__item:last-child { border-right: none; }
+
+.quickfacts__value {
+  font-family: var(--font-display);
+  color: var(--amber);
+  font-size: 1.7rem;
+  font-weight: 600;
+}
+
+.quickfacts__label {
+  color: var(--mist-light);
+  font-size: 0.82rem;
+}
+
+@media (max-width: 760px) {
+  .quickfacts__row { flex-wrap: wrap; }
+  .quickfacts__item {
+    flex: 1 1 50%;
+    border-right: 1px solid rgba(246, 244, 239, 0.12);
+    border-bottom: 1px solid rgba(246, 244, 239, 0.12);
+  }
+}

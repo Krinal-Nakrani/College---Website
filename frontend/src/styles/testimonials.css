@@ -1,0 +1,37 @@
+.testimonials__card {
+  border-top: 3px solid var(--ink);
+  padding-top: 28px;
+  max-width: 720px;
+}
+
+.testimonials__quote {
+  font-family: var(--font-display);
+  font-size: clamp(1.2rem, 2.2vw, 1.5rem);
+  color: var(--ink);
+  font-weight: 500;
+  max-width: none;
+  line-height: 1.4;
+}
+
+.testimonials__byline {
+  display: flex;
+  flex-direction: column;
+  margin-top: 18px;
+  font-size: 0.9rem;
+}
+.testimonials__byline strong { color: var(--ink); }
+.testimonials__byline span { color: var(--mist); }
+
+.testimonials__dots {
+  display: flex;
+  gap: 8px;
+  margin-top: 28px;
+}
+.testimonials__dots button {
+  width: 28px;
+  height: 3px;
+  border: none;
+  background: var(--mist-light);
+  padding: 0;
+}
+.testimonials__dots button.is-active { background: var(--amber); }

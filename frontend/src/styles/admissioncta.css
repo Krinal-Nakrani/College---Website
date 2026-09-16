@@ -1,0 +1,31 @@
+.admissioncta {
+  background: var(--ink);
+  padding: 56px 0;
+}
+
+.admissioncta__inner {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 32px;
+  flex-wrap: wrap;
+}
+
+.admissioncta h2 {
+  color: var(--paper);
+  font-size: clamp(1.3rem, 2.4vw, 1.8rem);
+  max-width: 20ch;
+  margin-bottom: 10px;
+}
+
+.admissioncta p {
+  color: var(--mist-light);
+  max-width: 46ch;
+  margin: 0;
+}
+
+.admissioncta__actions {
+  display: flex;
+  gap: 14px;
+  flex-wrap: wrap;
+}

@@ -1,0 +1,53 @@
+.hero {
+  position: relative;
+  background: var(--ink);
+  overflow: hidden;
+  padding: 96px 0 76px;
+}
+
+/* Blueprint-style ruled grid, fading toward the right */
+.hero__grid {
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(rgba(246, 244, 239, 0.07) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(246, 244, 239, 0.07) 1px, transparent 1px);
+  background-size: 42px 42px;
+  -webkit-mask-image: linear-gradient(to right, black, transparent 75%);
+  mask-image: linear-gradient(to right, black, transparent 75%);
+}
+
+.hero__content { position: relative; z-index: 1; max-width: 640px; }
+
+.hero h1 {
+  color: var(--paper);
+  font-size: clamp(2.3rem, 5vw, 3.4rem);
+  font-weight: 600;
+  letter-spacing: -0.01em;
+}
+
+.hero__lede {
+  color: var(--mist-light);
+  font-size: 1.08rem;
+  margin: 26px 0 32px;
+  max-width: 48ch;
+}
+
+.hero__actions {
+  display: flex;
+  gap: 14px;
+  flex-wrap: wrap;
+  margin-bottom: 34px;
+}
+
+.hero__meta {
+  color: var(--mist);
+  font-size: 0.86rem;
+  border-top: 1px solid rgba(246, 244, 239, 0.16);
+  padding-top: 16px;
+  max-width: none;
+}
+
+@media (max-width: 640px) {
+  .hero { padding: 64px 0 52px; }
+}

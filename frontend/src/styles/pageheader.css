@@ -1,0 +1,33 @@
+.pageheader {
+  position: relative;
+  background: var(--ink);
+  padding: 64px 0 52px;
+  overflow: hidden;
+}
+
+.pageheader__grid {
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(rgba(246, 244, 239, 0.06) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(246, 244, 239, 0.06) 1px, transparent 1px);
+  background-size: 42px 42px;
+  mask-image: linear-gradient(to right, black, transparent 70%);
+  -webkit-mask-image: linear-gradient(to right, black, transparent 70%);
+}
+
+.pageheader .container { position: relative; z-index: 1; }
+
+.pageheader__eyebrow { color: var(--steel); font-size: 0.92rem; }
+
+.pageheader h1 {
+  color: var(--paper);
+  font-size: clamp(1.9rem, 3.6vw, 2.6rem);
+  margin: 8px 0 12px;
+  max-width: 22ch;
+}
+
+.pageheader p {
+  color: var(--mist-light);
+  max-width: 56ch;
+}
